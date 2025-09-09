@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { Home, Tv2 } from "lucide-react";
+import { Home, User2 } from "lucide-react";
 import { useSignOut } from "@/hooks/use-signout";
 
 export function NavUser() {
@@ -40,7 +40,7 @@ export function NavUser() {
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger className="cursor-pointer" asChild>
             <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
@@ -108,27 +108,27 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem className="cursor-pointer" asChild>
                 <Link href="/">
                   <Home />
                   Homepage
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/admin">
+              {/* <DropdownMenuItem asChild>
+                <Link href="/dashboard">
                   <IconDashboard />
                   Dashboard
                 </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/admin/courses">
-                  <Tv2 />
-                  Courses
+              </DropdownMenuItem> */}
+              <DropdownMenuItem className="cursor-pointer" asChild>
+                <Link href="/dashboard/profile">
+                  <User2 />
+                  Profile
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleSignOut}>
+            <DropdownMenuItem className="cursor-pointer" onClick={handleSignOut}>
               <IconLogout />
               Log out
             </DropdownMenuItem>

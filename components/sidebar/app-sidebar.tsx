@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   IconCamera,
   IconChartBar,
@@ -13,11 +13,11 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
-} from "@tabler/icons-react"
+} from "@tabler/icons-react";
 
-import { NavMain } from "@/components/sidebar/nav-main"
-import { NavSecondary } from "@/components/sidebar/nav-secondary"
-import { NavUser } from "@/components/sidebar/nav-user"
+import { NavMain } from "@/components/sidebar/nav-main";
+import { NavSecondary } from "@/components/sidebar/nav-secondary";
+import { NavUser } from "@/components/sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -26,35 +26,35 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import Image from "next/image"
-import Logo from "@/public/logo.svg"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
+import Image from "next/image";
+import Logo from "@/public/logo.svg";
 
 const data = {
   navMain: [
     {
-      title: "Dashboard",
-      url: "/admin",
+      title: "Link 1",
+      url: "#",
       icon: IconDashboard,
     },
     {
-      title: "Courses",
-      url: "/admin/courses",
+      title: "Link 2",
+      url: "#",
       icon: IconListDetails,
     },
     {
-      title: "Analytics",
+      title: "Link 3",
       url: "#",
       icon: IconChartBar,
     },
     {
-      title: "Projects",
+      title: "Link 4",
       url: "#",
       icon: IconFolder,
     },
     {
-      title: "Team",
+      title: "Link 5",
       url: "#",
       icon: IconUsers,
     },
@@ -108,11 +108,11 @@ const data = {
     },
   ],
   navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "#",
+    //   icon: IconSettings,
+    // },
     // {
     //   title: "Get Help",
     //   url: "#",
@@ -124,7 +124,7 @@ const data = {
     //   icon: IconSearch,
     // },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -136,9 +136,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/">
-                <Image src={Logo} alt="Logo" className="size-5 dark:invert" />
-                <span className="text-base font-semibold">Bookly</span>
+              <Link href="/" className="flex items-center space-x-2">
+                <Image src={Logo} alt="Bookly Logo" width={32} height={32} />
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent transition-transform duration-200 hover:scale-105">
+                  Bookly
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -152,5 +154,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

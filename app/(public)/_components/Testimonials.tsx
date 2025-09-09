@@ -33,7 +33,7 @@ const testimonials = [
 
 const Testimonials = () => {
     return (
-        <section id="testimonials" className="bg-gradient-to-br from-white via-blue-50/20 to-gray-50 py-20 relative overflow-hidden">
+        <section id="testimonials" className="bg-gradient-to-br from-white via-blue-50/20 to-gray-50 py-32 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-10 right-10 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl"></div>
             <div className="absolute bottom-10 left-10 w-64 h-64 bg-purple-100/20 rounded-full blur-3xl"></div>

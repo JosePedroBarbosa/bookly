@@ -1,22 +1,25 @@
-import { AppSidebar } from "@/components/sidebar/app-sidebar"
-import { SiteHeader } from "@/components/sidebar/site-header"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { SiteHeader } from "@/components/sidebar/site-header";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { ReactNode } from "react";
 
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/db";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  })
+  const session = await auth.api.getSession({ headers: await headers() });
 
-  if (!session) {
-    redirect("/login"); 
+  if (!session?.user?.id) redirect("/login");
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { onboardedAt: true },
+  });
+
+  if (!user?.onboardedAt) {
+    redirect("/onboarding");
   }
 
   return (
