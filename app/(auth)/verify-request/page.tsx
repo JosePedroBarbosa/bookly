@@ -31,8 +31,8 @@ export default function VerifyRequest() {
   function verifyOtp() {
     startTransition(async () => {
       await authClient.signIn.emailOtp({
-        email: email,
-        otp: otp,
+        email,
+        otp,
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email verified");
@@ -49,7 +49,7 @@ export default function VerifyRequest() {
   function resendCode() {
     startResendTransition(async () => {
       await authClient.emailOtp.sendVerificationOtp({
-        email: email,
+        email,
         type: "sign-in",
         fetchOptions: {
           onSuccess: () => {
@@ -65,20 +65,22 @@ export default function VerifyRequest() {
   }
 
   return (
-    <Card className="border border-blue-100 shadow-lg bg-white/80 backdrop-blur-xl rounded-2xl">
+    <Card className="border border-blue-100 shadow-xl bg-white/90 backdrop-blur-2xl rounded-2xl">
       <CardHeader className="text-center space-y-4 pb-6">
-        <div className="mx-auto w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-2 border border-blue-100">
+        <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-full flex items-center justify-center shadow-md border border-blue-100">
           <Mail className="w-8 h-8 text-blue-600" />
         </div>
         <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
           Please check your email
         </CardTitle>
         <CardDescription className="text-base leading-relaxed max-w-sm mx-auto text-gray-500">
-          We have sent a verification code
+          We’ve sent you a 6-digit verification code to{" "}
+          <span className="font-medium text-blue-600">{email}</span>
         </CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-8 px-6 pb-6">
+        {/* OTP Section */}
         <div className="flex flex-col items-center space-y-4">
           <div className="relative">
             <InputOTP
@@ -87,36 +89,26 @@ export default function VerifyRequest() {
               maxLength={6}
               className="gap-3"
             >
-              <InputOTPGroup className="gap-2">
-                <InputOTPSlot
-                  index={0}
-                  className="w-12 h-12 text-lg font-semibold border-2 border-blue-100 focus:border-blue-500 bg-white/70 backdrop-blur-md transition-all duration-200 focus:ring-2 focus:ring-blue-100 rounded-xl"
-                />
-                <InputOTPSlot
-                  index={1}
-                  className="w-12 h-12 text-lg font-semibold border-2 border-blue-100 focus:border-blue-500 bg-white/70 backdrop-blur-md transition-all duration-200 focus:ring-2 focus:ring-blue-100 rounded-xl"
-                />
-                <InputOTPSlot
-                  index={2}
-                  className="w-12 h-12 text-lg font-semibold border-2 border-blue-100 focus:border-blue-500 bg-white/70 backdrop-blur-md transition-all duration-200 focus:ring-2 focus:ring-blue-100 rounded-xl"
-                />
+              <InputOTPGroup className="gap-3">
+                {[0, 1, 2].map((i) => (
+                  <InputOTPSlot
+                    key={i}
+                    index={i}
+                    className="w-12 h-14 text-xl font-bold tracking-wider border-2 border-blue-100 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-center"
+                  />
+                ))}
               </InputOTPGroup>
-              <div className="w-4 flex justify-center">
-                <div className="w-2 h-0.5 bg-blue-100 rounded-full" />
+              <div className="w-6 flex justify-center">
+                <div className="w-2 h-1 rounded-full bg-gradient-to-r from-blue-200 to-blue-400" />
               </div>
-              <InputOTPGroup className="gap-2">
-                <InputOTPSlot
-                  index={3}
-                  className="w-12 h-12 text-lg font-semibold border-2 border-blue-100 focus:border-blue-500 bg-white/70 backdrop-blur-md transition-all duration-200 focus:ring-2 focus:ring-blue-100 rounded-xl"
-                />
-                <InputOTPSlot
-                  index={4}
-                  className="w-12 h-12 text-lg font-semibold border-2 border-blue-100 focus:border-blue-500 bg-white/70 backdrop-blur-md transition-all duration-200 focus:ring-2 focus:ring-blue-100 rounded-xl"
-                />
-                <InputOTPSlot
-                  index={5}
-                  className="w-12 h-12 text-lg font-semibold border-2 border-blue-100 focus:border-blue-500 bg-white/70 backdrop-blur-md transition-all duration-200 focus:ring-2 focus:ring-blue-100 rounded-xl"
-                />
+              <InputOTPGroup className="gap-3">
+                {[3, 4, 5].map((i) => (
+                  <InputOTPSlot
+                    key={i}
+                    index={i}
+                    className="w-12 h-14 text-xl font-bold tracking-wider border-2 border-blue-100 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-center"
+                  />
+                ))}
               </InputOTPGroup>
             </InputOTP>
           </div>
@@ -124,19 +116,18 @@ export default function VerifyRequest() {
           <div className="text-center space-y-2">
             <p className="text-sm text-blue-600 flex items-center justify-center gap-2 font-medium">
               <Shield className="w-4 h-4" />
-              Enter the 6-digit verification code
+              Enter the verification code
             </p>
-            <p className="text-xs text-gray-400">
-              Code expires in 10 minutes
-            </p>
+            <p className="text-xs text-gray-400">Code expires in 10 minutes</p>
           </div>
         </div>
 
+        {/* Actions */}
         <div className="space-y-3">
           <Button
             onClick={verifyOtp}
             disabled={emailPending || !isOtpCompleted}
-            className="w-full h-12 cursor-pointer font-medium transition-all duration-200 rounded-lg bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.02] disabled:opacity-60"
+            className="w-full h-12 cursor-pointer font-medium transition-all duration-200 rounded-lg bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {emailPending ? (
               <>
@@ -155,7 +146,7 @@ export default function VerifyRequest() {
             variant="outline"
             onClick={resendCode}
             disabled={resendPending}
-            className="w-full h-10 cursor-pointer font-medium transition-all duration-200 rounded-lg border-blue-200 text-blue-700 hover:bg-blue-50 hover:scale-[1.02] disabled:opacity-60"
+            className="w-full h-10 cursor-pointer font-medium transition-all duration-200 rounded-lg border-blue-200 text-blue-700 hover:bg-blue-50 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {resendPending ? (
               <>
@@ -171,13 +162,15 @@ export default function VerifyRequest() {
           </Button>
         </div>
 
+        {/* Help Text */}
         <div className="text-center">
           <p className="text-xs text-gray-400">
-            Didn't receive the code? Check your spam folder or click resend above.
+            Didn’t receive the code? Check your{" "}
+            <span className="text-blue-500 font-medium">spam folder</span> or
+            click resend above.
           </p>
         </div>
       </CardContent>
     </Card>
-
   );
 }

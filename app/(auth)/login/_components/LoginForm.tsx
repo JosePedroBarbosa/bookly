@@ -81,85 +81,82 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto border border-blue-100 shadow-lg bg-white rounded-2xl">
-      <CardHeader className="space-y-3 pb-6 text-center">
-        <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent">
-          Welcome back!
-        </CardTitle>
-        <CardDescription className="text-base text-gray-500">
-          Choose your preferred sign-in method
-        </CardDescription>
-      </CardHeader>
+    <Card className="w-full max-w-md mx-auto border border-blue-100/60 shadow-xl bg-gradient-to-b from-white to-blue-50/20 rounded-2xl backdrop-blur-sm">
+  <CardHeader className="space-y-3 pb-8 text-center">
+    <CardTitle className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
+      Welcome back!
+    </CardTitle>
+    <CardDescription className="text-base text-gray-500">
+      Choose your preferred sign-in method
+    </CardDescription>
+  </CardHeader>
 
-      <CardContent className="space-y-4 px-6 pb-6">
-        {/* Social Login Buttons */}
-        <div className="grid grid-cols-1 gap-3">
-          <Button
-            disabled={googlePending}
-            onClick={signInWithGoogle}
-            className="cursor-pointer h-12 font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] border border-blue-200 bg-white hover:bg-blue-50 text-blue-600"
-            variant="outline"
-          >
-            {googlePending ? (
-              <Loader className="size-4 animate-spin" />
-            ) : (
-              <>
-                <GoogleIcon className="size-5" />
-                <span className="hidden sm:inline ml-2">Google</span>
-              </>
-            )}
-          </Button>
-        </div>
+  <CardContent className="space-y-6 px-6 pb-8">
+    {/* Social Login */}
+    <div className="grid grid-cols-1 gap-3">
+      <Button
+        disabled={googlePending}
+        onClick={signInWithGoogle}
+        className="cursor-pointer h-12 font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border border-blue-200 bg-white hover:bg-blue-50 text-blue-600 rounded-xl shadow-sm hover:shadow-md"
+        variant="outline"
+      >
+        {googlePending ? (
+          <Loader className="size-4 animate-spin" />
+        ) : (
+          <>
+            <GoogleIcon className="size-5" />
+            <span className="hidden sm:inline ml-2">Continue with Google</span>
+          </>
+        )}
+      </Button>
+    </div>
 
-        {/* Divider */}
-        <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-blue-200" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-3 text-gray-400 font-medium">
-              Or continue with email
-            </span>
-          </div>
-        </div>
+    {/* Divider */}
+    <div className="relative flex items-center justify-center">
+      <span className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
+      <span className="relative bg-white px-3 py-0.5 rounded-full text-xs font-medium text-gray-400 border border-blue-100/60 shadow-sm">
+        Or continue with email
+      </span>
+    </div>
 
-        {/* Email Form */}
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-blue-600">
-              Email address
-            </Label>
-            <Input
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Enter your email"
-              required
-              className="h-12 border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 rounded-lg"
-            />
-          </div>
+    {/* Email Form */}
+    <div className="space-y-4">
+      <div className="space-y-2 text-left">
+        <Label htmlFor="email" className="text-sm font-semibold text-blue-600">
+          Email address
+        </Label>
+        <Input
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="you@example.com"
+          required
+          className="h-12 border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 rounded-xl shadow-sm"
+        />
+      </div>
 
-          <Button
-            className="cursor-pointer w-full h-12 font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] bg-blue-600 text-white hover:bg-blue-700 rounded-lg"
-            onClick={signInWithEmail}
-            disabled={emailPending || !email.trim()}
-          >
-            {emailPending ? (
-              <>
-                <Loader2 className="size-4 animate-spin mr-2" />
-                <span>Sending...</span>
-              </>
-            ) : (
-              <>
-                <Send className="size-4 mr-2" />
-                <span>Continue with Email</span>
-              </>
-            )}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+      <Button
+        className="cursor-pointer w-full h-12 font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] bg-blue-600 text-white hover:bg-blue-700 rounded-xl shadow-md hover:shadow-blue-200/50"
+        onClick={signInWithEmail}
+        disabled={emailPending || !email.trim()}
+      >
+        {emailPending ? (
+          <>
+            <Loader2 className="size-4 animate-spin mr-2" />
+            <span>Sending...</span>
+          </>
+        ) : (
+          <>
+            <Send className="size-4 mr-2" />
+            <span>Continue with Email</span>
+          </>
+        )}
+      </Button>
+    </div>
+  </CardContent>
+</Card>
+
 
   );
 }
