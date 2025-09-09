@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { Home, User2 } from "lucide-react";
+import { Home, User2, CreditCardIcon } from "lucide-react";
 import { useSignOut } from "@/hooks/use-signout";
 
 export function NavUser() {
@@ -114,21 +114,24 @@ export function NavUser() {
                   Homepage
                 </Link>
               </DropdownMenuItem>
-              {/* <DropdownMenuItem asChild>
-                <Link href="/dashboard">
-                  <IconDashboard />
-                  Dashboard
-                </Link>
-              </DropdownMenuItem> */}
               <DropdownMenuItem className="cursor-pointer" asChild>
                 <Link href="/dashboard/profile">
                   <User2 />
                   Profile
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" asChild>
+                <Link href="/billing">
+                  <CreditCardIcon />
+                  Billing
+                </Link>
+              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer" onClick={handleSignOut}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={handleSignOut}
+            >
               <IconLogout />
               Log out
             </DropdownMenuItem>
