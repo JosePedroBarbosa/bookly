@@ -1,5 +1,4 @@
 import {
-  BookOpenIcon,
   ChevronDownIcon,
   Home,
   LayoutDashboard,
@@ -59,16 +58,6 @@ export default function UserDropdown({ email, name, image }: iAppProps) {
             <Link href="/">
               <Home size={16} className="opacity-60" aria-hidden="true" />
               <span>Home</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href="/courses">
-              <BookOpenIcon
-                size={16}
-                className="opacity-60"
-                aria-hidden="true"
-              />
-              <span>Courses</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">

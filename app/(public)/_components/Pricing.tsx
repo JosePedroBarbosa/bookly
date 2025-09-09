@@ -156,16 +156,6 @@ const Pricing = () => {
             </div>
           ))}
         </div>
-        
-        {/* Bottom Section */}
-        <div className="mt-12 sm:mt-16 text-center space-y-4 sm:space-y-6">
-          <p className="text-gray-600 text-sm sm:text-base">
-            Need a custom plan? 
-            <a href="/contact" className="text-blue-600 font-semibold hover:text-blue-700 ml-1 sm:ml-2 hover:underline transition-colors">
-              Contact our sales team
-            </a>
-          </p>
-        </div>
       </div>
     </section>
   );
