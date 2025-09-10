@@ -59,79 +59,93 @@ export default function OnboardingForm({ countries }: Props) {
   }, [router]);
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-64px)] px-4">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="relative w-full max-w-lg bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-8 border border-white/20">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-4">
+            <User className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
             Complete Your Profile
           </h1>
-          <p className="text-gray-600 text-sm mt-2">
-            Tell us a bit about yourself to get started
+          <p className="text-gray-600 mt-2 leading-relaxed">
+            Tell us a bit about yourself to get started on your journey
           </p>
         </div>
 
         <form
-          className="flex flex-col gap-6"
+          className="space-y-6"
           onSubmit={handleSubmit(onSubmit)}
           noValidate
         >
-          {/* First Name */}
-          <div className="space-y-2">
-            <Label
-              htmlFor="firstName"
-              className="text-sm font-medium flex items-center gap-2 text-gray-800"
-            >
-              <User className="h-4 w-4 text-blue-600" />
-              First Name <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              id="firstName"
-              placeholder="Enter your first name"
-              disabled={isPending}
-              {...register("firstName")}
-              className={cn(
-                "bg-white border-gray-300 focus:border-blue-400 focus:ring-blue-100 text-gray-900 placeholder:text-gray-400",
-                errors.firstName && "border-red-500 focus:border-red-500"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* First Name */}
+            <div className="space-y-2">
+              <Label
+                htmlFor="firstName"
+                className="text-sm font-medium text-gray-700 flex items-center gap-2"
+              >
+                First Name
+              </Label>
+              <Input
+                id="firstName"
+                placeholder="Enter your first name"
+                disabled={isPending}
+                {...register("firstName")}
+                className={cn(
+                  "h-12 bg-white/50 backdrop-blur-sm border-gray-200 focus:border-blue-500 focus:ring-blue-200 transition-all duration-200 hover:bg-white/70",
+                  errors.firstName && "border-red-300 focus:border-red-500 focus:ring-red-200"
+                )}
+              />
+              {errors.firstName && (
+                <p className="text-red-500 text-sm flex items-center gap-1">
+                  <span className="w-1 h-1 bg-red-500 rounded-full"></span>
+                  {errors.firstName.message}
+                </p>
               )}
-            />
-            {errors.firstName && (
-              <p className="text-red-500 text-xs">{errors.firstName.message}</p>
-            )}
-          </div>
+            </div>
 
-          {/* Last Name */}
-          <div className="space-y-2">
-            <Label
-              htmlFor="lastName"
-              className="text-sm font-medium flex items-center gap-2 text-gray-800"
-            >
-              <User className="h-4 w-4 text-blue-600" />
-              Last Name <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              id="lastName"
-              placeholder="Enter your last name"
-              disabled={isPending}
-              {...register("lastName")}
-              className={cn(
-                "bg-white border-gray-300 focus:border-blue-400 focus:ring-blue-100 text-gray-900 placeholder:text-gray-400",
-                errors.lastName && "border-red-500 focus:border-red-500"
+            {/* Last Name */}
+            <div className="space-y-2">
+              <Label
+                htmlFor="lastName"
+                className="text-sm font-medium text-gray-700 flex items-center gap-2"
+              >
+                Last Name
+              </Label>
+              <Input
+                id="lastName"
+                placeholder="Enter your last name"
+                disabled={isPending}
+                {...register("lastName")}
+                className={cn(
+                  "h-12 bg-white/50 backdrop-blur-sm border-gray-200 focus:border-purple-500 focus:ring-purple-200 transition-all duration-200 hover:bg-white/70",
+                  errors.lastName && "border-red-300 focus:border-red-500 focus:ring-red-200"
+                )}
+              />
+              {errors.lastName && (
+                <p className="text-red-500 text-sm flex items-center gap-1">
+                  <span className="w-1 h-1 bg-red-500 rounded-full"></span>
+                  {errors.lastName.message}
+                </p>
               )}
-            />
-            {errors.lastName && (
-              <p className="text-red-500 text-xs">{errors.lastName.message}</p>
-            )}
+            </div>
           </div>
 
           {/* Country */}
           <div className="space-y-2">
             <Label
               htmlFor="country"
-              className="text-sm font-medium flex items-center gap-2 text-gray-800"
+              className="text-sm font-medium text-gray-700 flex items-center gap-2"
             >
-              <Globe className="h-4 w-4 text-blue-600" />
-              Country <span className="text-red-500">*</span>
+              Country
             </Label>
             <Controller
               name="country"
@@ -144,21 +158,21 @@ export default function OnboardingForm({ countries }: Props) {
                 >
                   <SelectTrigger
                     className={cn(
-                      "w-full bg-white border-gray-300 text-gray-900 focus:border-blue-400 focus:ring-blue-100 cursor-pointer",
-                      errors.country && "border-red-500 focus:border-red-500"
+                      "cursor-pointer w-full h-12 bg-white/50 backdrop-blur-sm border-gray-200 focus:border-green-500 focus:ring-green-200 transition-all duration-200 hover:bg-white/70",
+                      errors.country && "border-red-300 focus:border-red-500 focus:ring-red-200"
                     )}
                   >
                     <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-gray-500" />
+                      <Globe className="w-4 h-4 text-gray-500" />
                       <SelectValue placeholder="Select your country" />
                     </div>
                   </SelectTrigger>
-                  <SelectContent className="bg-white border-gray-200 max-h-[200px]">
+                  <SelectContent className="bg-white/95 backdrop-blur-sm border-gray-200 max-h-[200px]">
                     {countries.map((c) => (
                       <SelectItem
                         key={c.value}
                         value={c.value}
-                        className="text-gray-800 hover:bg-blue-50 focus:bg-blue-50"
+                        className="text-gray-800 hover:bg-green-50 focus:bg-green-50 transition-colors"
                       >
                         {c.label}
                       </SelectItem>
@@ -168,7 +182,10 @@ export default function OnboardingForm({ countries }: Props) {
               )}
             />
             {errors.country && (
-              <p className="text-red-500 text-xs">{errors.country.message}</p>
+              <p className="text-red-500 text-sm flex items-center gap-1">
+                <span className="w-1 h-1 bg-red-500 rounded-full"></span>
+                {errors.country.message}
+              </p>
             )}
           </div>
 
@@ -176,14 +193,18 @@ export default function OnboardingForm({ countries }: Props) {
           <Button
             type="submit"
             className={cn(
-              "w-full h-12 text-base font-semibold rounded-xl",
-              "bg-blue-600 hover:bg-blue-700 text-white",
-              "shadow-md hover:shadow-lg transition-all duration-300",
-              "disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              "w-full h-14 text-base font-semibold rounded-2xl",
+              "bg-gradient-to-br from-blue-500 to-blue-600 text-white",
+              "shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]",
+              "disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none cursor-pointer",
+              "relative overflow-hidden"
             )}
             disabled={isPending || !isValid}
           >
-            {isPending ? "Setting up your account..." : "Complete Setup"}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700"></div>
+            <span className="relative z-10">
+              {isPending ? "Setting up your account..." : "Complete Setup"}
+            </span>
           </Button>
         </form>
       </div>

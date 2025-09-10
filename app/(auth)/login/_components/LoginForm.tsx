@@ -8,13 +8,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader, Loader2, Send } from "lucide-react";
+import { Loader, Send, Mail, Chrome } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 
 function GoogleIcon({ className }: { className?: string }) {
   return (
@@ -39,11 +40,14 @@ function GoogleIcon({ className }: { className?: string }) {
   );
 }
 
+const emailSchema = z.string().email("Please enter a valid email address");
+
 export function LoginForm() {
   const router = useRouter();
   const [googlePending, startGoogleTransition] = useTransition();
   const [emailPending, startEmailTransition] = useTransition();
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   async function signInWithGoogle() {
     startGoogleTransition(async () => {
@@ -63,17 +67,25 @@ export function LoginForm() {
   }
 
   function signInWithEmail() {
+    // Validate email before sending
+    const validation = emailSchema.safeParse(email);
+    if (!validation.success) {
+      setEmailError(validation.error.errors[0].message);
+      return;
+    }
+    
+    setEmailError("");
     startEmailTransition(async () => {
       await authClient.emailOtp.sendVerificationOtp({
-        email: email,
+        email: email.trim(),
         type: "sign-in",
         fetchOptions: {
           onSuccess: () => {
-            toast.success("Email sent");
-            router.push(`/verify-request?email=${email}`);
+            toast.success("Verification code sent to your email");
+            router.push(`/verify-request?email=${encodeURIComponent(email.trim())}`);
           },
           onError: () => {
-            toast.error("Error sending email");
+            toast.error("Failed to send verification email. Please try again.");
           },
         },
       });
@@ -81,81 +93,99 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto border border-blue-100/60 shadow-xl bg-gradient-to-b from-white to-blue-50/20 rounded-2xl backdrop-blur-sm">
-  <CardHeader className="space-y-3 pb-8 text-center">
-    <CardTitle className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
-      Welcome back!
-    </CardTitle>
-    <CardDescription className="text-base text-gray-500">
-      Choose your preferred sign-in method
-    </CardDescription>
-  </CardHeader>
+    <div className="flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm">
+          <CardHeader className="space-y-6 pb-8">
+            <div className="text-center space-y-3">
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                Welcome to Bookly
+              </CardTitle>
+              <CardDescription className="text-gray-600 text-base leading-relaxed">
+                Sign in to access your booking management dashboard
+              </CardDescription>
+            </div>
+          </CardHeader>
 
-  <CardContent className="space-y-6 px-6 pb-8">
-    {/* Social Login */}
-    <div className="grid grid-cols-1 gap-3">
-      <Button
-        disabled={googlePending}
-        onClick={signInWithGoogle}
-        className="cursor-pointer h-12 font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border border-blue-200 bg-white hover:bg-blue-50 text-blue-600 rounded-xl shadow-sm hover:shadow-md"
-        variant="outline"
-      >
-        {googlePending ? (
-          <Loader className="size-4 animate-spin" />
-        ) : (
-          <>
-            <GoogleIcon className="size-5" />
-            <span className="hidden sm:inline ml-2">Continue with Google</span>
-          </>
-        )}
-      </Button>
-    </div>
+          <CardContent className="space-y-6">
+            <Button
+              onClick={signInWithGoogle}
+              disabled={googlePending || emailPending}
+              className="cursor-pointer w-full h-12 bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 shadow-sm transition-all duration-200 hover:shadow-md font-medium group"
+            >
+              {googlePending ? (
+                <>
+                  <Loader className="size-4 animate-spin" />
+                  <span className="ml-2">Signing in...</span>
+                </>
+              ) : (
+                <>
+                  <Chrome className="size-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
+                  <span className="ml-2">Continue with Google</span>
+                </>
+              )}
+            </Button>
 
-    {/* Divider */}
-    <div className="relative flex items-center justify-center">
-      <span className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
-      <span className="relative bg-white px-3 py-0.5 rounded-full text-xs font-medium text-gray-400 border border-blue-100/60 shadow-sm">
-        Or continue with email
-      </span>
-    </div>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-6 text-gray-500 font-medium">
+                  Or continue with email
+                </span>
+              </div>
+            </div>
 
-    {/* Email Form */}
-    <div className="space-y-4">
-      <div className="space-y-2 text-left">
-        <Label htmlFor="email" className="text-sm font-semibold text-blue-600">
-          Email address
-        </Label>
-        <Input
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="you@example.com"
-          required
-          className="h-12 border-blue-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 rounded-xl shadow-sm"
-        />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  Email address
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 size-4" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (emailError) setEmailError("");
+                    }}
+                    className={`h-11 pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500 transition-colors ${
+                      emailError ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""
+                    }`}
+                    disabled={googlePending || emailPending}
+                  />
+                </div>
+                {emailError && (
+                  <p className="text-sm text-red-600 mt-1">{emailError}</p>
+                )}
+              </div>
+
+              <Button
+                onClick={signInWithEmail}
+                disabled={!email.trim() || googlePending || emailPending}
+                className="cursor-pointer w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                {emailPending ? (
+                  <>
+                    <Loader className="size-4 animate-spin" />
+                    <span className="ml-2">Sending verification code...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="size-4" />
+                    <span className="ml-2">Send verification code</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-
-      <Button
-        className="cursor-pointer w-full h-12 font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] bg-blue-600 text-white hover:bg-blue-700 rounded-xl shadow-md hover:shadow-blue-200/50"
-        onClick={signInWithEmail}
-        disabled={emailPending || !email.trim()}
-      >
-        {emailPending ? (
-          <>
-            <Loader2 className="size-4 animate-spin mr-2" />
-            <span>Sending...</span>
-          </>
-        ) : (
-          <>
-            <Send className="size-4 mr-2" />
-            <span>Continue with Email</span>
-          </>
-        )}
-      </Button>
     </div>
-  </CardContent>
-</Card>
 
 
   );
