@@ -5,9 +5,8 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ProfileEditForm } from "@/components/dashboard/profile-edit-form";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Save } from "lucide-react";
+import { User } from "lucide-react";
 import countriesData from "world-countries";
 
 export const metadata: Metadata = {
