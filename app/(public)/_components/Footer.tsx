@@ -8,69 +8,56 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="relative bg-gradient-to-b from-white to-gray-50 text-gray-800 overflow-hidden border-t border-gray-100">
-            {/* Subtle background elements */}
-            <div className="absolute top-0 left-1/3 w-96 h-96 bg-blue-50/30 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-50/20 rounded-full blur-3xl"></div>
-            
-            <div className="relative z-20 container mx-auto px-6 lg:px-8">
+        <footer className="bg-white border-t border-gray-200">
+            <div className="container mx-auto px-6 lg:px-8">
                 {/* Main Footer Content */}
-                <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 items-start">
+                <div className="py-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    
+                    {/* Brand Section */}
+                    <div className="text-center md:text-left">
+                        <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
+                            Bookly
+                        </h3>
+                        <p className="text-gray-600 text-sm">
+                            Simple appointment management for professionals
+                        </p>
+                    </div>
 
-                    {/* Brand Section - Takes 2 columns on large screens */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <div>
-                            <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent mb-4">
-                                Bookly
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed max-w-sm text-lg">
-                                Transforming appointment management for professionals worldwide. Simple, powerful, effective.
-                            </p>
-                        </div>
-
-                        {/* Enhanced Social Media */}
-                        <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-4">Connect with us</p>
-                            <div className="flex gap-3">
-                                {[
-                                    { Icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-sky-50 hover:text-sky-600" },
-                                    { Icon: Instagram, href: "#", label: "Instagram", color: "hover:bg-pink-50 hover:text-pink-600" },
-                                    { Icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:bg-blue-50 hover:text-blue-700" }
-                                ].map(({ Icon, href, label, color }) => (
-                                    <a
-                                        key={label}
-                                        href={href}
-                                        aria-label={label}
-                                        className={`group w-12 h-12 bg-white/80 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 ${color}`}
-                                    >
-                                        <Icon className="w-5 h-5 text-gray-600 group-hover:scale-110 transition-all duration-300" />
-                                    </a>
-                                ))}
-                            </div>
+                    {/* Support Section */}
+                    <div className="text-center md:text-left">
+                        <h4 className="text-lg font-bold text-gray-900 mb-3">Support</h4>
+                        <div className="flex items-center justify-center md:justify-start gap-2 text-gray-600">
+                            <Mail className="w-4 h-4 text-blue-500" />
+                            <span className="text-sm font-medium">support@bookly.com</span>
                         </div>
                     </div>
 
-                    {/* Support & Contact */}
-                    <div className="space-y-4">
-                        <h4 className="text-lg font-bold text-gray-900 mb-2">Support</h4>
-
-                        {/* Contact info - enhanced */}
-                        <div className="space-y-3">
-                            <div className="flex items-center gap-3 p-3 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200/50">
-                                <Mail className="w-5 h-5 text-blue-500" />
-                                <span className="text-gray-700 font-medium">support@bookly.com</span>
-                            </div>
-                        </div>
+                    {/* Social Media */}
+                    <div className="flex gap-4 justify-center md:justify-end">
+                        {[
+                            { Icon: Twitter, href: "#", label: "Twitter" },
+                            { Icon: Instagram, href: "#", label: "Instagram" },
+                            { Icon: Linkedin, href: "#", label: "LinkedIn" }
+                        ].map(({ Icon, href, label }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                aria-label={label}
+                                className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-100 hover:text-blue-600 transition-all duration-300"
+                            >
+                                <Icon className="w-4 h-4" />
+                            </a>
+                        ))}
                     </div>
                 </div>
 
-                {/* Enhanced Bottom Section */}
-                <div className="border-t border-gray-200/60 py-8">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-
+                {/* Bottom Section */}
+                <div className="border-t border-gray-200 py-6">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
+                        
                         {/* Copyright */}
-                        <div className="text-gray-600 flex items-center gap-2 font-medium">
-                            <span>© {currentYear} Bookly.</span>
+                        <div className="flex items-center gap-2">
+                            <span>© {currentYear} Bookly. All rights reserved.</span>
                             <span className="hidden md:inline text-gray-400">•</span>
                             <span className="flex items-center gap-1">
                                 Made with <span className="text-red-500 animate-pulse">❤️</span> in Portugal
@@ -79,15 +66,15 @@ const Footer = () => {
 
                         {/* Legal Links */}
                         <div className="flex items-center gap-6">
-                            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item, index) => (
+                            {['Privacy Policy', 'Terms of Service'].map((item, index) => (
                                 <React.Fragment key={item}>
                                     <Link
                                         href={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                                        className="text-gray-500 hover:text-blue-600 transition-colors duration-300 font-medium text-sm"
+                                        className="hover:text-blue-600 transition-colors duration-300"
                                     >
                                         {item}
                                     </Link>
-                                    {index < 2 && <span className="text-gray-300">•</span>}
+                                    {index < 1 && <span className="text-gray-400">•</span>}
                                 </React.Fragment>
                             ))}
                         </div>

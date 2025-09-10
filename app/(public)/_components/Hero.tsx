@@ -5,7 +5,7 @@ import { ArrowRight, Calendar, Bell, Store } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white py-24 md:py-24">
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white py-16 md:py-24 lg:py-32">
       {/* Subtle Gradient Background */}
       <div className="absolute inset-0 bg-gradient-radial from-blue-50/60 via-white to-white opacity-70"></div>
 
@@ -23,23 +23,23 @@ const Hero = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-6xl lg:text-8xl font-extrabold mb-6 tracking-tight text-gray-900 leading-none">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold mb-4 md:mb-6 tracking-tight text-gray-900 leading-none">
               <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-sm">
                 Bookly
               </span>
             </h1>
-            <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 mb-4 md:mb-6">
               Simple Booking for Any Service
             </h2>
 
             {/* Subtitle */}
-            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-sm md:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed px-4 md:px-0">
               Manage appointments, automate reminders, and grow your business —
               all in one easy-to-use platform designed for modern entrepreneurs.
             </p>
 
             {/* Feature Pills */}
-            <div className="flex flex-wrap gap-3 mb-10 justify-center">
+            <div className="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-10 justify-center px-4 md:px-0">
               <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/80 backdrop-blur-sm border border-blue-100/80 text-blue-700 hover:bg-blue-50/80 hover:border-blue-200 transition-all duration-300 shadow-sm hover:shadow-md group">
                 <Calendar className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm font-medium">Easy Scheduling</span>
@@ -55,12 +55,12 @@ const Hero = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-10 md:mb-12 px-4 md:px-0">
               <Button
                 asChild
                 size="lg"
                 variant="blue"
-                className="text-white border-0 px-8 py-6 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-blue-200 transition-all duration-300 group backdrop-blur-sm hover:scale-[1.02] transform"
+                className="text-white border-0 px-6 md:px-8 py-4 md:py-6 text-base md:text-lg font-semibold rounded-xl md:rounded-2xl shadow-lg hover:shadow-blue-200 transition-all duration-300 group backdrop-blur-sm hover:scale-[1.02] transform"
               >
                 <Link href="/login">
                   Try It Free
@@ -72,26 +72,26 @@ const Hero = () => {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-blue-200/80 text-blue-600 hover:bg-blue-50 hover:border-blue-300 px-8 py-6 text-lg font-medium rounded-2xl transition-all duration-300 backdrop-blur-sm bg-white/60 hover:scale-[1.02] transform shadow-sm hover:shadow-md"
+                className="border-blue-200/80 text-blue-600 hover:bg-blue-50 hover:border-blue-300 px-6 md:px-8 py-4 md:py-6 text-base md:text-lg font-medium rounded-xl md:rounded-2xl transition-all duration-300 backdrop-blur-sm bg-white/60 hover:scale-[1.02] transform shadow-sm hover:shadow-md"
               >
                 <Link href="#features">View Features</Link>
               </Button>
             </div>
 
             {/* Social Proof */}
-            <div className="inline-flex items-center gap-6 px-6 py-4 rounded-2xl bg-white/50 backdrop-blur-sm border border-gray-100/80 shadow-sm">
+            <div className="inline-flex items-center gap-3 md:gap-6 px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/50 backdrop-blur-sm border border-gray-100/80 shadow-sm mx-4 md:mx-0">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">10K+</div>
+                <div className="text-lg md:text-2xl font-bold text-gray-900">10K+</div>
                 <div className="text-xs text-gray-600">Active Users</div>
               </div>
-              <div className="w-px h-8 bg-gray-200"></div>
+              <div className="w-px h-6 md:h-8 bg-gray-200"></div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">99.9%</div>
+                <div className="text-lg md:text-2xl font-bold text-gray-900">99.9%</div>
                 <div className="text-xs text-gray-600">Uptime</div>
               </div>
-              <div className="w-px h-8 bg-gray-200"></div>
+              <div className="w-px h-6 md:h-8 bg-gray-200"></div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">4.9</div>
+                <div className="text-lg md:text-2xl font-bold text-gray-900">4.9</div>
                 <div className="text-xs text-gray-600">Rating</div>
               </div>
             </div>
