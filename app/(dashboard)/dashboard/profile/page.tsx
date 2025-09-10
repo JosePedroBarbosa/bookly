@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Edit, Calendar, MapPin, Mail, User, Clock, CheckCircle } from "lucide-react";
+import { Edit, Calendar, MapPin, Mail, User, Clock, CheckCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { getUserInitials, formatDate } from "@/lib/utils";
 
@@ -59,6 +59,14 @@ export default async function ProfilePage() {
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-100/20 rounded-full blur-3xl"></div>
       
       <div className="relative z-10 flex flex-col pb-6">
+        {/* Back Navigation */}
+        <div className="p-6 pb-0">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 group">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+            <span className="text-sm font-medium">Back to Dashboard</span>
+          </Link>
+        </div>
+        
         {/* Header Section */}
         <div className="p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">

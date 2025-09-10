@@ -175,28 +175,20 @@ export function ProfileEditForm({ user, countries }: ProfileEditFormProps) {
       <Separator className="bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
       {/* Form Actions */}
-      <div className="flex flex-col sm:flex-row gap-4 pt-6">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => router.push("/dashboard/profile")}
-          className="flex-1 h-12 border-gray-300 hover:bg-gray-50 cursor-pointer"
-        >
-          Cancel
-        </Button>
+      <div className="pt-6">
         <Button
           type="submit"
           disabled={isPending || !isValid || !isDirty}
-          className="cursor-pointer flex-1 h-12 bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          className="cursor-pointer w-full h-14 bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-lg font-semibold"
         >
           {isPending ? (
             <>
-              <Loader className="w-4 h-4 animate-spin mr-2" />
+              <Loader className="w-5 h-5 animate-spin mr-2" />
               Saving Changes...
             </>
           ) : (
             <>
-              <Save className="w-4 h-4 mr-2" />
+              <Save className="w-5 h-5 mr-2" />
               Save Changes
             </>
           )}

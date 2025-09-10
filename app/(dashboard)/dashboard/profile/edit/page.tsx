@@ -6,8 +6,9 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { ProfileEditForm } from "@/components/dashboard/profile-edit-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { User } from "lucide-react";
+import { User, ArrowLeft } from "lucide-react";
 import countriesData from "world-countries";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Bookly | Edit Profile",
@@ -59,6 +60,17 @@ export default async function EditProfilePage() {
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-100/20 rounded-full blur-3xl"></div>
       
       <div className="relative z-10 flex flex-col pb-6">
+        {/* Back Navigation */}
+        <div className="p-6 pb-0">
+          <Link 
+            href="/dashboard/profile" 
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+            <span className="text-sm font-medium">Back to Profile</span>
+          </Link>
+        </div>
+        
         {/* Header Section */}
         <div className="p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
