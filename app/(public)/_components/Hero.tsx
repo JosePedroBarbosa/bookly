@@ -5,7 +5,7 @@ import { ArrowRight, Calendar, Bell, Store } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white py-24 md:py-32">
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white py-24 md:py-24">
       {/* Subtle Gradient Background */}
       <div className="absolute inset-0 bg-gradient-radial from-blue-50/60 via-white to-white opacity-70"></div>
 
