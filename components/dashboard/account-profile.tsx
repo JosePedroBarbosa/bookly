@@ -43,7 +43,7 @@ export function AccountProfile({ user }: AccountProfileProps) {
       
       <CardHeader className="relative z-10">
         <div className="flex items-center gap-3">
-          <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 group-hover:from-blue-100 group-hover:to-blue-200 rounded-2xl transition-all duration-300 group-hover:scale-110">
+          <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl transition-all duration-300">
             <User className="w-6 h-6 text-blue-500" />
           </div>
           <div>
@@ -134,10 +134,7 @@ export function AccountProfile({ user }: AccountProfileProps) {
             </Button>
           </Link>
         </div>
-      </CardContent>
-      
-      {/* Hover accent line for card */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+      </CardContent>     
     </Card>
   )
 }

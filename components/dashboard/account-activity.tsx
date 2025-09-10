@@ -30,7 +30,7 @@ export function AccountActivity({ user }: AccountActivityProps) {
       
       <CardHeader className="relative z-10">
         <div className="flex items-center gap-3">
-          <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 group-hover:from-purple-100 group-hover:to-purple-200 rounded-2xl transition-all duration-300 group-hover:scale-110">
+          <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl transition-all duration-300">
             <Clock className="w-6 h-6 text-purple-500" />
           </div>
           <div>
@@ -75,9 +75,6 @@ export function AccountActivity({ user }: AccountActivityProps) {
           </div>
         )}
       </CardContent>
-      
-      {/* Hover accent line for card */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 to-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
     </Card>
   )
 }
