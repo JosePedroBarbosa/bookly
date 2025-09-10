@@ -6,13 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { Separator } from "@/components/ui/separator"
 import { 
   CalendarDays, 
   Clock,
   UserCheck,
 } from "lucide-react"
-import { formatDate, formatRelativeDate } from "@/lib/utils"
+import { formatDate } from "@/lib/utils"
 
 interface User {
   createdAt: Date
@@ -57,9 +56,6 @@ export function AccountActivity({ user }: AccountActivityProps) {
             <p className="text-sm text-gray-700 font-medium">
               {formatDate(user.createdAt)}
             </p>
-            <p className="text-xs text-gray-500">
-              {formatRelativeDate(user.createdAt)}
-            </p>
           </div>
         </div>
 
@@ -74,9 +70,6 @@ export function AccountActivity({ user }: AccountActivityProps) {
             <div className="pl-6 space-y-1">
               <p className="text-sm text-gray-700 font-medium">
                 {formatDate(user.onboardedAt)}
-              </p>
-              <p className="text-xs text-gray-500">
-                {formatRelativeDate(user.onboardedAt)}
               </p>
             </div>
           </div>

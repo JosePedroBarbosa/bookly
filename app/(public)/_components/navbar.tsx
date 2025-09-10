@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { authClient } from "@/lib/auth-client";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -11,6 +10,7 @@ import UserDropdown from "./UserDropdown";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { getUserInitials } from "@/lib/utils"; 
 
 const navigationItems = [
   { name: "Home", href: "/", icon: Home },
@@ -39,8 +39,17 @@ export function Navbar() {
     });
   }
 
+  const userName =
+    session?.user?.name && session.user.name.length > 0
+      ? session.user.name
+      : session?.user?.email
+      ? session.user.email.split("@")[0]
+      : "User";
+
+  const userInitials = getUserInitials(userName);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 background-blur-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div
         className="container flex min-h-16 items-center justify-between mx-auto px-4 md:px-6 lg:px-8"
         suppressHydrationWarning={true}
@@ -67,29 +76,21 @@ export function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden md:flex items-center space-x-4">
-          {/* <ThemeToggle /> */}
-
           {isPending ? null : session ? (
             <UserDropdown
               email={session.user.email}
-              name={session?.user.name && session.user.name.length > 0
-                ? session.user.name
-                : session?.user.email.split("@")[0]}
-              image={session?.user.image ??
-                `https://avatar.vercel.sh/${session?.user.email}`}
+              name={userName}
+              image={session.user.image ?? undefined} 
             />
           ) : (
-            <>
-              <Link href="/login" className={`${buttonVariants({ variant: "blue" })} w-full justify-center`}>
-                Get Started
-              </Link>
-            </>
+            <Link href="/login" className={`${buttonVariants({ variant: "blue" })} w-full justify-center`}>
+              Get Started
+            </Link>
           )}
         </div>
 
         {/* Mobile menu */}
         <div className="md:hidden flex items-center space-x-2">
-          {/* <ThemeToggle /> */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <button className="p-2 hover:bg-accent rounded-md transition-colors cursor-pointer">
@@ -138,22 +139,22 @@ export function Navbar() {
                     <div className="space-y-3">
                       {/* User Info */}
                       <div className="flex items-center space-x-3 px-2 py-2 rounded-lg bg-muted/50">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold">
                           {session.user.image ? (
                             <Image
                               src={session.user.image}
-                              alt={session.user.name || 'User'}
+                              alt={userName}
                               width={32}
                               height={32}
                               className="rounded-full"
                             />
                           ) : (
-                            <User className="h-4 w-4 text-muted-foreground" />
+                            userInitials
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium truncate">
-                            {session.user.name || 'User'}
+                            {userName}
                           </p>
                           <p className="text-xs text-muted-foreground truncate">
                             {session.user.email}

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Navbar } from "../(public)/_components/navbar";
+import { Navbar } from "@/app/(public)/_components/navbar";
 import countriesData from "world-countries";
 import OnboardingForm from "./_components/OnboardingForm";
 

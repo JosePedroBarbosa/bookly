@@ -12,20 +12,6 @@ export const formatDate = (date: string | Date) =>
     year: "numeric",
   }).format(new Date(date));
 
-export const formatRelativeDate = (date: string | Date) => {
-  const now = new Date();
-  const targetDate = new Date(date);
-  const diffInDays = Math.floor(
-    (targetDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  if (diffInDays === 0) return "Today";
-  if (diffInDays === 1) return "Tomorrow";
-  if (diffInDays === -1) return "Yesterday";
-  if (diffInDays > 0) return `In ${diffInDays} days`;
-  return `${Math.abs(diffInDays)} days ago`;
-};
-
 export function getUserInitials(name: string): string {
   return name
     .split(" ")

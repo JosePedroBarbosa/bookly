@@ -12,7 +12,6 @@ interface OnboardingResult {
     firstName: string;
     lastName: string;
     country: string;
-    image: string | null;
     onboardedAt: Date;
   };
 }
@@ -29,7 +28,7 @@ export async function onboardingUser(data: unknown): Promise<OnboardingResult> {
     throw new Error("Not authenticated");
   }
 
-  const { firstName, lastName, country, photo } = validatedData;
+  const { firstName, lastName, country } = validatedData;
 
   try {
     const existingUser = await prisma.user.findUnique({
@@ -47,7 +46,6 @@ export async function onboardingUser(data: unknown): Promise<OnboardingResult> {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         country: country.toLowerCase(),
-        image: photo || null,
         onboardedAt: new Date(),
       },
       select: {
@@ -55,7 +53,6 @@ export async function onboardingUser(data: unknown): Promise<OnboardingResult> {
         firstName: true,
         lastName: true,
         country: true,
-        image: true,
         onboardedAt: true,
       },
     });
